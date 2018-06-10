@@ -1,0 +1,211 @@
+const botconfig = require("./botconfig.json");
+const tokenfile = require("./token.json");
+const Discord = require("discord.js");
+const fs = require("fs");
+const YTDL = require("ytdl-core");
+const bot = new Discord.Client({disableEveryone: false});
+
+// const Cleverbot = require("cleverbot-node");
+// const clbot = new Cleverbot;
+// clbot.configure({botapi: "IAMKEY"});
+
+bot.commands = new Discord.Collection();
+let coins = require("./coins.json");
+let xp = require("./xp.json");
+let purple = botconfig.purple;
+let green = botconfig.green;
+let cooldown = new Set();
+let cdseconds = 3;
+
+fs.readdir("./commands/", (err, files) => {
+
+    if(err) console.log(err);
+
+    let jsfile= files.filter(f => f.split(".").pop() === "js")
+    if(jsfile.length <= 0){
+        console.log("Couldn't find commands.");
+        return;
+    };
+
+    jsfile.forEach((f, i) => {
+        let props = require(`./commands/${f}`);
+        console.log(`${f} loaded!`);
+        bot.commands.set(props.help.name, props);
+    });
+
+});
+
+function play(connection, message) {
+    let server = servers[message.guild.id];
+
+    server.dispatcher = connection.playStream(YTDL(server.queue[0], {filter: "audioonly"}));
+    server.queue.shift();
+
+    server.dispatcher.on("end", function() {
+        if (server.queue[0]) play(connection, message);
+        else connection.disconnect();
+    });
+};
+
+let servers = {};
+
+bot.on("ready", async () => {
+  console.log(`${bot.user.username} is online on ${bot.guilds.size} servers! Serving ${bot.users.size} users.`);
+  bot.user.setActivity("Code...", {type: "LISTENING"});
+});
+
+
+bot.on("guildMemberAdd", (member, message) => {
+    console.log(`${member.id} joined the server! :D`);
+
+    let welcomechannel = member.guild.channels.find(`name`, "members-joined");
+    welcomechannel.send(`We have a new member! ${member} has joined the guild! :D`);
+    member.guild.channels.get('454833410939289621').setName(`Total Users: ${member.guild.memberCount}`);
+});
+
+bot.on("guildMemberRemove", (member, message) => {
+    console.log(`${member.id} left the server! ;-;`);
+
+    let welcomechannel = member.guild.channels.find(`name`, "members-joined");
+    welcomechannel.send(`We lost ${member}, they have been forgotten...`);
+    member.guild.channels.get('454833410939289621').setName(`Total Users: ${member.guild.memberCount}`);
+})
+
+bot.on("message", async message => {
+    if(message.author.bot) return;
+    if(message.channel.type === "dm") return;
+
+    let prefixes = JSON.parse(fs.readFileSync("./prefixes.json", "utf8"));
+
+    if(!prefixes[message.guild.id]){
+        prefixes[message.guild.id] = {
+            prefixes: botconfig.prefix
+        };
+    };
+// //Cleverbot 
+// bot.on("message", message => {
+//     if (message.channel.type === "dm") {
+//       clbot.write(message.content, (response) => {
+//         message.channel.startTyping();
+//         setTimeout(() => {
+//           message.channel.send(response.output).catch(console.error);
+//           message.channel.stopTyping();
+//         }, Math.random() * (1 - 3) + 1 * 1000);
+//       });
+//     }
+
+
+    if(!coins[message.author.id]){
+        coins[message.author.id] = {
+            coins: 0
+        };
+    }
+    // COIN SYSTEM
+    let coinAmt = Math.floor(Math.random() * 50) + 1;
+    let baseAmt = Math.floor(Math.random() * 50) + 1;  
+    console.log(`${coinAmt} ; ${baseAmt}`);  
+
+    if(coinAmt === baseAmt){
+        coins[message.author.id] = {
+            coins: coins[message.author.id].coins + coinAmt
+        };
+        fs.writeFile("./coins.json", JSON.stringify(coins), (err) => {
+            if (err) console.log(err)
+        });
+        let coinEmbed = new Discord.RichEmbed()
+        .setAuthor(message.author.username)
+        .setColor(green)
+        .addField("🤑", `${coinAmt} euros added!`);
+
+        message.channel.send(coinEmbed).then(msg => {msg.delete(5000)});
+    }
+
+    let xpAdd = Math.floor(Math.random() * 7) + 8;
+    console.log(xpAdd);
+//xp system
+    if(!xp[message.author.id]){
+        xp[message.author.id] = {
+            xp: 0,
+            level: 1
+        };
+    }
+
+    let curxp = xp[message.author.id].xp;
+    let curlvl = xp[message.author.id].level;
+    let nxtLvl = xp[message.author.id].level * 1000;
+    xp[message.author.id].xp = curxp + xpAdd;
+    if(nxtLvl <= xp[message.author.id].xp){
+        xp[message.author.id].level = curlvl + 1;
+        let lvlup = new Discord.RichEmbed()
+            .setTitle("Level Up!")
+            .setColor(purple)
+            .addField("New Level", curlvl + 1);
+
+            message.channel.send(lvlup).then(msg => {msg.delete(5000)});
+     }
+     fs.writeFile("./xp.json", JSON.stringify(xp), (err) => {
+        if(err) console.log(err)
+    });
+    let prefix = prefixes[message.guild.id].prefixes;
+
+    if(!message.content.startsWith(prefix)) return;
+    if(cooldown.has(message.author.id)){
+        message.delete();
+        return message.reply("You have to wait 3 seconds between commands.")
+    }
+    // if(!message.member.hasPermission("MANAGE_GUILD")){
+        cooldown.add(message.author.id);
+   //  }
+
+
+    let messageArray = message.content.split(" ");
+    let cmd = messageArray[0];
+    let args = messageArray.slice(1);
+
+    let commandfile = bot.commands.get(cmd.slice(prefix.length));
+    if(commandfile) commandfile.run(bot,message,args);
+
+    setTimeout(() => {
+        cooldown.delete(message.author.id)
+    }, cdseconds * 1000)
+
+
+    if(cmd === `${prefix}play`){
+        if(!args[0]) {
+            message.channel.send("Please provide a link.");
+            return;
+        }
+
+        if(!message.member.voiceChannel) {
+            message.channel.send("You must be in a voice channel.");
+            return;
+        }
+
+        if(!servers[message.guild.id]) servers[message.guild.id] = {
+            queue: []
+        }
+
+        if(!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection) {
+            play(connection, message);
+            message.delete().catch();
+        });
+
+        var server = servers[message.guild.id];
+        server.queue.push(args[0]);
+    }
+
+    if(cmd === `${prefix}skip`){
+        let server = servers[message.guild.id];
+
+        if(server.dispatcher) server.dispatcher.end(); 
+        message.delete().catch();
+     };
+     if(cmd === `${prefix}stop`){
+         let server = servers[message.guild.id];
+
+         if (message.guild.voiceConnection) message.guild.voiceConnection.disconnect();
+         message.delete().catch();
+     }
+});
+
+bot.login(tokenfile.token);
