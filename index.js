@@ -50,9 +50,19 @@ function play(connection, message) {
 let servers = {};
 
 bot.on("ready", async () => {
-  console.log(`${bot.user.username} is online on ${bot.guilds.size} servers! Serving ${bot.users.size} users.`);
-  bot.user.setActivity("Code...", {type: "LISTENING"});
+    setInterval(function() {
+        bot.user.setActivity(`!aboutbot to get info!`);
+        setTimeout(function() {
+        bot.user.setActivity(`${bot.guilds.size} servers, ${bot.users.size} people!`, {type: "WATCHING"});
+        }, 5000)
+      }, 10000)
 });
+
+
+// bot.on("ready", async () => {
+//   console.log(`${bot.user.username} is online on ${bot.guilds.size} servers! Serving ${bot.users.size} users.`);
+//   bot.user.setActivity("Code...", {type: "LISTENING"});
+// });
 
 
 bot.on("guildMemberAdd", (member, message) => {
