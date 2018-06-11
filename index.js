@@ -212,9 +212,15 @@ bot.on("message", async message => {
          message.delete().catch();
      }
      if(cmd === `${prefix}statschannel enable`){
+
+        try{
         message.channel.send(`Enabled stats channel.`)
         message.guild.createChannel(`Total Users: ${message.guild.memberCount}`, 'voice')
         message.delete().catch();
+          }catch(e){
+            message.delete().catch();
+            message.channel.send(`Error.`)
+          }
     }
 });
 
