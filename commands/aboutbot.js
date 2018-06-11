@@ -13,7 +13,8 @@ module.exports.run = async (bot, message, args) =>{
         .addField("Servers I am in", `${bot.guilds.size}`)
         .addField("Want help?", `https://discord.gg/Tr65AJb`)
         .addField("Bot Commands", `Do !help`)
-        .addField("Info", `make a "members-joined", "reports", "incidents".`);
+        .addField("Info", `Make a "members-joined", "reports", "incidents".`)
+        .addField("More Info", `Use !statschannel-enable`);
 
         message.delete().catch();
         return message.channel.send(botembed);
