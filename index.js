@@ -103,7 +103,7 @@ bot.on("message", async message => {
     // COIN SYSTEM
     let coinAmt = Math.floor(Math.random() * 50) + 1;
     let baseAmt = Math.floor(Math.random() * 50) + 1;  
-    console.log(`${coinAmt} ; ${baseAmt}`);  
+    // console.log(`${coinAmt} ; ${baseAmt}`);  
 
     if(coinAmt === baseAmt){
         coins[message.author.id] = {
@@ -121,7 +121,7 @@ bot.on("message", async message => {
     }
 
     let xpAdd = Math.floor(Math.random() * 7) + 8;
-    console.log(xpAdd);
+    // console.log(xpAdd);
 //xp system
     if(!xp[message.author.id]){
         xp[message.author.id] = {
