@@ -104,6 +104,7 @@ module.exports.run = async (bot, message, args) => {
         message.channel.send(musicEmbed)
         message.channel.send(economyEmbed)
         message.channel.send(adminEmbed)
+        }
 
   
     // .addField("lukawip", `!lukawip // Shows info on Luka!`)
