@@ -60,15 +60,20 @@ bot.on("guildMemberAdd", (member, message) => {
 
     let welcomechannel = member.guild.channels.find(`name`, "members-joined");
     welcomechannel.send(`We have a new member! ${member} has joined the guild! :D`);
-    member.guild.channels.get('454833410939289621').setName(`Total Users: ${member.guild.memberCount}`);
+
+    let usersbefore = member.guild.memberCount - 1;
+    let statschannel = member.guild.channels.find(`name`, `Total Users: ${usersbefore}`);
+    member.guild.channels.find(`name`, `Total Users: ${usersbefore}`).setName(`Total Users: ${member.guild.memberCount}`);
 });
 
 bot.on("guildMemberRemove", (member, message) => {
     console.log(`${member.id} left the server! ;-;`);
 
-    let welcomechannel = member.guild.channels.find(`name`, "members-joined");
+    let usersbefore = member.guild.memberCount + 1;
+    let statschannel = member.guild.channels.find(`name`, `Total Users: ${usersbefore}`);
+    let welcomechannel = member.guild.channels.find(`name`, `members-joined`);
     welcomechannel.send(`We lost ${member}, they have been forgotten...`);
-    member.guild.channels.get('454833410939289621').setName(`Total Users: ${member.guild.memberCount}`);
+    member.guild.channels.find(`name`, `Total Users: ${usersbefore}`).setName(`Total Users: ${member.guild.memberCount}`);
 })
 
 bot.on("message", async message => {
