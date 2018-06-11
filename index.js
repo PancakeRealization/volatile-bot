@@ -211,7 +211,7 @@ bot.on("message", async message => {
          if (message.guild.voiceConnection) message.guild.voiceConnection.disconnect();
          message.delete().catch();
      }
-     if(cmd === `${prefix}statschannel enable`){
+     if(cmd === `${prefix}statschannel-enable`){
         if(err) console.log(err);
         message.channel.send("Hello.")
         try{
