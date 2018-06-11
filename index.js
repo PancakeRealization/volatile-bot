@@ -59,7 +59,11 @@ bot.on("guildMemberAdd", (member, message) => {
     console.log(`${member.id} joined the server! :D`);
 
     let welcomechannel = member.guild.channels.find(`name`, "members-joined");
-    welcomechannel.send(`We have a new member! ${member} has joined the guild! :D`);
+    // welcomechannel.send(`We have a new member! ${member} has joined the guild! :D`);
+    let welcomeEmbed = new Discord.RichEmbed()
+    .setTitle(`${member.displayAvatarURL}`, `${member}(${member.id})`)
+    .setFooter(`User Joined - ${member.joinedTimestamp}`)
+    
 
     let usersbefore = member.guild.memberCount - 1;
     let statschannel = member.guild.channels.find(`name`, `Total Users: ${usersbefore}`);
