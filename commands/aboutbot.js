@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) =>{
         .addField("Servers I am in", `${bot.guilds.size}`)
         .addField("Want help?", `https://discord.gg/Tr65AJb`)
         .addField("Bot Commands", `Do !help`)
-        .addField("Info", `make a "members-joined", "reports", "incidents", and a random voice channel.`);
+        .addField("Info", `make a "members-joined", "reports", "incidents".`);
 
         message.delete().catch();
         return message.channel.send(botembed);

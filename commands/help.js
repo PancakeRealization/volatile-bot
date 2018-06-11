@@ -22,7 +22,8 @@ module.exports.run = async (bot, message, args) => {
     .addField("aboutbot", `!aboutbot // Shows the bot info!`)
     .addField("serverinfo", `!serverinfo // Shows the server info!`)
     .addField("about", `!about <user> // Shows info about a user! `)
-    .addField("aboutchannel", `!aboutchannel // Shows info about the channel your in!`);
+    .addField("aboutchannel", `!aboutchannel // Shows info about the channel your in!`)
+    .addField("Stats Channel", `!statschannel-enable // Shows how much people are in your server.`)
 
     message.author.send(importantEmbed)
 
