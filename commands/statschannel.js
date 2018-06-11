@@ -7,6 +7,7 @@ module.exports.run = async (bot, message, args) => {
     message.channel.send(`Enabled stats channel.`)
     message.guild.createChannel(`Total Users: ${message.guild.memberCount}`, 'voice')
       }catch(e){
+        console.log(e);
         message.channel.send(`We tried to enable the stats channel.`)
     }
 }
