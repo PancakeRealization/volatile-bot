@@ -210,7 +210,12 @@ bot.on("message", async message => {
 
          if (message.guild.voiceConnection) message.guild.voiceConnection.disconnect();
          message.delete().catch();
-     }
+     };
+     if(cmd === `${prefix}statschannel enable`){
+        message.channel.send(`Enabled stats channel.`)
+        message.guild.createChannel(`Total Users: ${message.guild.memberCount}`, 'voice')
+        message.delete().catch();
+    }
 });
 
 bot.login(tokenfile.token);
