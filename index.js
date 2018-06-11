@@ -61,8 +61,8 @@ bot.on("guildMemberAdd", (member, message) => {
     let welcomechannel = member.guild.channels.find(`name`, "members-joined");
     // welcomechannel.send(`We have a new member! ${member} has joined the guild! :D`);
     let welcomeEmbed = new Discord.RichEmbed()
-    .setTitle(`${member.displayAvatarURL}`, `${member}(${member.id})`)
-    .setFooter(`User Joined - ${member.joinedTimestamp}`);
+    .setDescription(`${member.displayAvatarURL}`, `${member}(${member.id})`)
+    .setFooter(`User Joined - ${member.JoinedAt}`);
     
     welcomechannel.send(welcomeEmbed);
 
