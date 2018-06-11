@@ -84,6 +84,8 @@ bot.on("guildMemberRemove", (member, message) => {
     .setFooter(`User Left`)
     .setTimestamp();
 
+    welcomechannel.send(welcomeEmbed)
+
     member.guild.channels.find(`name`, `Total Users: ${usersbefore}`).setName(`Total Users: ${member.guild.memberCount}`);
 })
 
