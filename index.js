@@ -61,8 +61,9 @@ bot.on("guildMemberAdd", (member, message) => {
     let welcomechannel = member.guild.channels.find(`name`, "members-joined");
     // welcomechannel.send(`We have a new member! ${member} has joined the guild! :D`);
     let welcomeEmbed = new Discord.RichEmbed()
-    .setDescription(`${member.displayAvatarURL}`, `${member}(${member.id})`)
-    .setFooter(`User Joined - ${member.JoinedAt}`);
+    .setAuthor(`${member.user.tag} (${member.user.id})`, member.user.displayAvatarURL)
+    .setFooter(`User Joined`)
+    .setTimestamp();
     
     welcomechannel.send(welcomeEmbed);
 
@@ -77,7 +78,12 @@ bot.on("guildMemberRemove", (member, message) => {
     let usersbefore = member.guild.memberCount + 1;
     let statschannel = member.guild.channels.find(`name`, `Total Users: ${usersbefore}`);
     let welcomechannel = member.guild.channels.find(`name`, `members-joined`);
-    welcomechannel.send(`We lost ${member}, they have been forgotten...`);
+
+    let welcomeEmbed = new Discord.RichEmbed()
+    .setAuthor(`${member.user.tag} (${member.user.id})`, member.user.displayAvatarURL)
+    .setFooter(`User Left`)
+    .setTimestamp();
+
     member.guild.channels.find(`name`, `Total Users: ${usersbefore}`).setName(`Total Users: ${member.guild.memberCount}`);
 })
 
