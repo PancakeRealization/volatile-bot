@@ -91,8 +91,20 @@ module.exports.run = async (bot, message, args) => {
   
     message.author.send(adminEmbed)
 
+
+    try{
     message.delete().catch();
     message.channel.send(`A Message has been sent to ${message.author.username}.`);
+        }catch(e){
+        message.delete().catch();
+        message.channel.send("We tried DMing you, but your DMs are closed.")
+        message.channel.send(importantEmbed)
+        message.channel.send(normalEmbed)
+        message.channel.send(funEmbed)
+        message.channel.send(musicEmbed)
+        message.channel.send(economyEmbed)
+        message.channel.send(adminEmbed)
+
   
     // .addField("lukawip", `!lukawip // Shows info on Luka!`)
 
