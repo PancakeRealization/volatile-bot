@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, args) => {
         .setDescription(message.author.username)
         .setColor(purple)
         .addField("Testers", `Luka, Ollie, and Minako.`)
-        .addField("Contributers", `DoofusJack, FreakChan, Tetra#0002 (Bot owner of ium)`);
+        .addField("Contributers", `DoofusJack, FreakChan, Tetra#0002 (Bot owner of ium/soundium)`);
 
         message.delete().catch(O_o=>{});
         return message.channel.send(contributersEmbed).then(msg => {msg.delete(10000)});
