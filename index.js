@@ -68,10 +68,12 @@ bot.on("ready", async () => {
 bot.on("guildMemberAdd", (member, message) => {
     console.log(`${member.id} joined the server! :D`);
 
+    let color = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
     let welcomechannel = member.guild.channels.find(`name`, "members-joined");
     // welcomechannel.send(`We have a new member! ${member} has joined the guild! :D`);
     let welcomeEmbed = new Discord.RichEmbed()
     .setAuthor(`${member.user.tag} (${member.user.id})`, member.user.displayAvatarURL)
+    .setColor(color)
     .setFooter(`User Joined`)
     .setTimestamp();
     
@@ -84,13 +86,14 @@ bot.on("guildMemberAdd", (member, message) => {
 
 bot.on("guildMemberRemove", (member, message) => {
     console.log(`${member.id} left the server! ;-;`);
-
+    let color = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
     let usersbefore = member.guild.memberCount + 1;
     let statschannel = member.guild.channels.find(`name`, `Total Users: ${usersbefore}`);
     let welcomechannel = member.guild.channels.find(`name`, `members-joined`);
 
     let welcomeEmbed = new Discord.RichEmbed()
     .setAuthor(`${member.user.tag} (${member.user.id})`, member.user.displayAvatarURL)
+    .setColor(color)
     .setFooter(`User Left`)
     .setTimestamp();
 
