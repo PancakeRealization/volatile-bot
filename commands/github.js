@@ -4,7 +4,7 @@ module.exports.run = async (bot, message, args) => {
 
     let githubEmbed = new Discord.RichEmbed()
     .setTitle("Github")
-    .setURL(`https://github.com/PancakeRealization/volatile-bot`)
+    .setURL(``)
     .setFooter("Github Link")
     .setTimestamp();
 
@@ -14,5 +14,5 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.help = {
-    name: "///github"
+    name: "///githubb"
 }
