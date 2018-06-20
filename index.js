@@ -202,7 +202,7 @@ bot.on("message", async message => {
 
 
     if(cmd === `${prefix}play`){
-        if(!args[0]) {
+        if(!args[1]) {
             message.channel.send("Please provide a entry.");
             return;
         }
@@ -215,21 +215,21 @@ bot.on("message", async message => {
         if(!servers[message.guild.id]) servers[message.guild.id] = {
             queue: []
         }
+        var server = servers[message.guild.id];
+        server.queue.push(args[0]);
 
         if(!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection) {
             play(connection, message);
             message.delete().catch();
         });
 
-        var server = servers[message.guild.id];
-        server.queue.push(args[0]);
     }
 
     if(cmd === `${prefix}skip`){
         let server = servers[message.guild.id];
 
         if(server.dispatcher) server.dispatcher.end(); 
-        message.channel.send("The current song was skki.");
+        message.channel.send("The current song was skipped.");
         message.delete().catch();
      };
      if(cmd === `${prefix}stop`){
