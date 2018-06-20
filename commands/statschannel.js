@@ -14,5 +14,5 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.help = {
-    name: "statschannel enable"
+    name: "statschannel"
 };

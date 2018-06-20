@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) => {
     let bicon = bot.user.displayAvatarURL;
 
     let importantEmbed = new Discord.RichEmbed()
-    //11 Lines -- Important Commands
+    //12 Lines -- Important Commands
     .setDescription("**Important Commands**")
     .setAuthor("Volatile")
     .setThumbnail(bicon)
@@ -23,7 +23,7 @@ module.exports.run = async (bot, message, args) => {
     .addField("serverinfo", `!serverinfo // Shows the server info!`)
     .addField("about", `!about <user> // Shows info about a user! `)
     .addField("aboutchannel", `!aboutchannel // Shows info about the channel your in!`)
-    .addField("Stats Channel", `!statschannel-enable // Shows how much people are in your server.`)
+    .addField("Stats Channel", `!statschannel // Shows how much people are in your server.`)
 
     message.author.send(importantEmbed)
 
