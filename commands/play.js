@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) => {
         return;
     }
 
-    if(!servers[message.guild.id]) servers[message.guild.id] = {
+    if(!server[message.guild.id]) servers[message.guild.id] = {
         queue: []
     }
     var server = servers[message.guild.id];
