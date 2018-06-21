@@ -15,6 +15,8 @@ module.exports.run = async (bot, message, args) => {
         });
     };
 
+    let servers = {};
+
     if(!args[0]) {
         message.channel.send("Please provide a entry.");
         return;
