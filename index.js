@@ -112,7 +112,8 @@ bot.on("message", async message => {
         prefixes[message.guild.id] = {
             prefixes: botconfig.prefix
         };
-    };
+    }
+
 // //Cleverbot 
 // bot.on("message", message => {
 //     if (message.channel.type === "dm") {
@@ -177,6 +178,7 @@ bot.on("message", async message => {
      fs.writeFile("./xp.json", JSON.stringify(xp), (err) => {
         if(err) console.log(err)
     });
+    
     let prefix = prefixes[message.guild.id].prefixes;
 
     if(!message.content.startsWith(prefix)) return;
@@ -187,7 +189,6 @@ bot.on("message", async message => {
     // if(!message.member.hasPermission("MANAGE_GUILD")){
         cooldown.add(message.author.id);
    //  }
-
 
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
