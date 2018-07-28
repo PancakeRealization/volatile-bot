@@ -65,16 +65,6 @@ module.exports.run = async (bot, message, args) => {
     .addField("skip", `!skip // Skips the current song!`);
     message.author.send(musicEmbed)
 
-    let economyEmbed = new Discord.RichEmbed()
-    // 5 Lines -- Economy Commands
-    .setAuthor("Economy Commands")
-    .setThumbnail(bicon)
-    .setColor(green)
-    .addField("balance", `!coins // Shows your amount of coins!`)
-    .addField("pay", `!pay <user> <amount> // Pays the user the amount!`);
-
-    message.author.send(economyEmbed)
-
     let adminEmbed = new Discord.RichEmbed()
     // 11 Lines -- Admin Commands
     .setAuthor("Admin Commands")
@@ -83,7 +73,6 @@ module.exports.run = async (bot, message, args) => {
     .addField("warn",`!warn <user> <reason> // Warns the specified user!`)
     .addField("warnlevel", `!warnlevel <user> // Shows the amount the user has been warned!`)
     .addField("say", `!say <what you want to say> // Says something that you want the bot to say!`)
-    .addField("prefix", `!prefix <prefix you want> // Changes the prefix!`)
     .addField("kick", `!kick <user> <reason> // Kicks the specified user!`)
     .addField("ban",  `!ban <user> <reason> // Bans the specified user!`)
     .addField("clear", `!clear <amount> // Clears the amount of messages!`)
