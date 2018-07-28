@@ -1,9 +1,6 @@
 const Disord = require("discord.js");
 const token = require("../token.json");
 const YTDL = require("ytdl-core");
-const YouTube = require("simple-youtube-api");
-const YOUTUBE_API_KEY = token.apikey;
-const youtube = new YouTube(YOUTUBE_API_KEY);
 
 module.exports.run = async (bot, message, args) => {
 
