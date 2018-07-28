@@ -8,7 +8,7 @@ module.exports.run = async (bot, message, args) =>{
         .setColor("#ff0800")
         .setThumbnail(bicon)
         .addField("Bot Name", bot.user.username)
-        .addField("Created By", `PancakeRealization#9394`)
+        .addField("Created By", `PancakeRealization#9394, and Cliffrising_inputs#7468.`)
         .addField("Created On", bot.user.createdAt)
         .addField("Servers I am in", `${bot.guilds.size}`)
         .addField("Want help?", `https://discord.gg/Tr65AJb`)
