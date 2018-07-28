@@ -10,7 +10,6 @@ const bot = new Discord.Client({disableEveryone: false});
 // clbot.configure({botapi: "IAMKEY"});
 
 bot.commands = new Discord.Collection();
-let coins = require("./coins.json");
 let purple = botconfig.purple;
 let green = botconfig.green;
 let cooldown = new Set();
